@@ -1,44 +1,64 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native';
+import { LoginScreen } from './src/screens/LoginScreen';
+import { COLORS } from './src/theme/colors';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  if (!isLoggedIn) {
+    return <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />;
+  }
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
+      <View style={styles.mainPanel}>
+        <Text style={styles.welcomeText}>Welcome to Dashboard Mobile Application!</Text>
+        <Text style={styles.subText}>The Inventory System integration phase is ready to proceed.</Text>
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+        <TouchableOpacity style={styles.logoutBtn} onPress={() => setIsLoggedIn(false)}>
+          <Text style={styles.logoutText}>Sign Out</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  mainPanel: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  welcomeText: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: COLORS.textPrimary,
+    textAlign: 'center',
+  },
+  subText: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  logoutBtn: {
+    marginTop: 32,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: COLORS.error,
+    borderRadius: 8,
+  },
+  logoutText: {
+    color: COLORS.error,
+    fontWeight: '600',
   },
 });
 

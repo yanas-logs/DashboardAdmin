@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { COLORS } from '../theme/colors';
-import { CustomInput } from '../components/CustomInput';
+import { COLORS } from '../src/theme/colors';
+import { CustomInput } from '../src/components/CustomInput';
 
 interface LoginScreenProps {
   onLoginSuccess: () => void;
